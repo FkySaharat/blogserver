@@ -1,0 +1,25 @@
+{
+  "name": "rare-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node app.js",
+    "dev": "nodemon app.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "tsc": "^1.20150623.0",
+    "@types/cors": "^2.8.8",
+    "@types/express": "^4.17.9",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.1.2"
+  }
+}
