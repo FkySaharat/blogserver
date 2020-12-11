@@ -15,29 +15,30 @@ export class BlogController {
 
 
   public async getBlogById(req: Request, res: Response) {
-    try {
-      const id = req.params.id;
-      const blog: BlogModel = await BlogController.blogService.getBlogbyId(id)
+    // try {
+    //   const id = req.params.id;
+    //   const blog: BlogModel = await BlogController.blogService.getBlogbyId(id)
 
-      res.status(200).send(blog);
-    } catch (error) {
-      console.log(error);
-      res.status(404).send("geting blog by id is failed");
-    }
+    //   res.status(200).send(blog);
+    // } catch (error) {
+    //   console.log(error);
+    //   res.status(404).send("geting blog by id is failed");
+    // }
   }
   public async getBlogs(req: Request, res: Response) {
-    try {
+    // try {
       
-      const blogs:BlogModel[] = await BlogController.blogService.getAllBlogs();
-      res.status(200).send(blogs);
-    } catch (error) {
-      res.status(404).send("geting blogs is failed");
-    }
+    //   const blogs:BlogModel[] = await BlogController.blogService.getAllBlogs();
+    //   res.status(200).send(blogs);
+    // } catch (error) {
+    //   res.status(404).send("geting blogs is failed");
+    // }
   }
   public async createBlog(req: Request, res: Response) {
     try {
       const newBlog: BlogModel ={ ...req.body}
-      await BlogController.blogService.createBlog(newBlog);
+      console.log("req ", newBlog)
+      // await BlogController.blogService.createBlog(newBlog);
       res.status(200).send("creating new blog is success");
     } catch (error) {
       res.status(404).send("creating new blog is failed");
