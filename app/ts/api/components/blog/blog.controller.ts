@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { BlogService } from "../../../services/blog.service";
-import { BlogModel } from "../../../models/blog";
+
 
 
 
@@ -36,9 +36,9 @@ export class BlogController {
   }
   public async createBlog(req: Request, res: Response) {
     try {
-      const newBlog: BlogModel ={ ...req.body}
-      console.log("req ", newBlog)
-      // await BlogController.blogService.createBlog(newBlog);
+      // const newBlog: BlogModel ={ ...req.body}
+      // console.log("req ", newBlog)
+      // // await BlogController.blogService.createBlog(newBlog);
       res.status(200).send("creating new blog is success");
     } catch (error) {
       res.status(404).send("creating new blog is failed");

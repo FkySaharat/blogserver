@@ -2,41 +2,50 @@ import { Model, Optional, DataTypes, Sequelize, BuildOptions } from "sequelize";
 
 
 
-interface UserInstance extends Model {
-    id: string;
+export interface UserModel {
+    id?: string;
     username: string;
+    password: string;
     firstName: string;
     lastName: string;
     email: string;
 }
 
-export const userFactory = (sequelize: Sequelize) =>{
+interface UserInstance extends Model<UserModel, UserModel> { }
 
-    return sequelize.define<UserInstance>("user", {
+export const userFactory = (sequelize: Sequelize) => {
+
+    return sequelize.define<UserInstance>("users", {
         id: {
-            type: DataTypes.UUIDV4,
+            type: DataTypes.UUID,
+            primaryKey: true,
             allowNull: false,
-            primaryKey: true
-    
+            defaultValue: DataTypes.UUIDV4
         },
         username: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        firstName: {
+        password: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue:''
         },
         lastName: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue:''
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: ''
         }
     })
 
-    
-}
 
+}

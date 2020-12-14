@@ -1,28 +1,26 @@
-import { Model, DataTypes } from "sequelize/types";
-import {sequelize} from "../database/connection";
- 
+import { Model, DataTypes, Sequelize } from "sequelize";
 
-class TagModel extends Model{
-    id!: number;
-    name !: string;
+
+
+
+export interface TagModel {
+    id: number;
+    name: string;
 }
 
-TagModel.init(
-    {
-        id:{
+interface TagInstance extends Model<TagModel> { }
+
+export const tagFactory = (sequelize: Sequelize) => {
+    return sequelize.define("tags", {
+        id: {
             type: DataTypes.INTEGER,
-            allowNull:false,
-            primaryKey:true,
-            autoIncrement:true
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
         },
-        name:{
-            type:DataTypes.STRING,
-            allowNull:false
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
-    },
-    {
-        sequelize,
-        tableName: 'tag',
-        freezeTableName: true
-    }
-)
+    })
+}

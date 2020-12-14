@@ -1,23 +1,26 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 
 
-
-interface RoleInstance extends Model {
+export interface RoleModel{
     id: number;
     name: string;
 }
 
+interface RoleInstance extends Model<RoleModel,RoleModel> {}
+
 export const roleFactory =  (sequelize:Sequelize)=>{
-    return sequelize.define("role",{
+    return sequelize.define<RoleInstance>("roles",{
         id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            autoIncrement: true,
             primaryKey: true,
         },
         name: {
             type: DataTypes.STRING,
             allowNull: false
-        }
+        },
+    },{
+        timestamps:false,
     })
 
 }
