@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node app/js/app.js",
-    "dev": "ts-node-dev app.ts"
+    "dev": "ts-node-dev app/ts/app.ts"
   },
   "author": "",
   "license": "ISC",

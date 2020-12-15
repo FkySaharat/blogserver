@@ -1,23 +1,43 @@
 import db from '../database/connection';
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 const config = require('../config/auth.config')
 
-export class VerifyAuthJwt{
+export class VerifyAuthJwt {
 
     private user = db.users;
 
-    public async verifyToken(req:Request, res:Response, next: NextFunction){
-        let token: string = req.headers["x-access-token"] as string;
+    public async verifyToken(req: Request, res: Response, next: NextFunction) {
+        // x-access-token have no bearer
 
-        if(!token){
-            res.status(403).send({message:"No token provided"})
+
+        try {
+            const authorization = req.headers.authorization as string;
+
+            let token = authorization.split(' ').length>1 ?authorization.split(' ')[1]:authorization
+
+            //split bearer for authorization
+
+            if (!token) {
+                res.status(403).send({ message: "No token provided" })
+            }
+
+            jwt.verify(token, config.secret, (err: any, decocde: any) => {
+                if (err) {
+                    console.log(err)
+                    return res.status(401).send({ message: "Unauthorized, token is invalid" })
+                }
+
+                res.locals = { ...res.locals, userId: decocde.id }
+
+                next();
+            })
+        } catch (error) {
+            console.log(error)
+            res.status(401).send({ message: "Unauthorized" })
         }
-        
-        // jwt.verify(token, config.secret,(err: any,decode: string) =>{
 
-        //    next() 
-        // })
-        
     }
 }
+
+export default new VerifyAuthJwt()

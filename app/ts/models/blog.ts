@@ -3,7 +3,7 @@ import { Model, DataTypes, Sequelize } from "sequelize";
 
 
 export interface BlogModel {
-    id: string;
+    id?: string;
     header: string;
     body: string;
     publicAt?: Date;

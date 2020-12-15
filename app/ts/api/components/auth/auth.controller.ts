@@ -17,7 +17,6 @@ export class AuthController {
         console.log('sign up')
         try {
             let user: UserModel = {
-                id: undefined,
                 username: req.body.username,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -29,7 +28,8 @@ export class AuthController {
 
             res.status(200).send({ message: "User was registered successfully!" })
         } catch (error) {
-            res.status(500).send({ message: error.message });
+            
+            res.status(500).send({ message: "User was registered fail", error:error});
         }
 
 
@@ -38,7 +38,7 @@ export class AuthController {
     public async signIn(req: Request, res: Response) {
         console.log('sign in')
         try {
-
+            
            let result = await AuthController.authService.signInService(req.body.username, req.body.password)
             console.log(result)
             res.status(200).send(result)

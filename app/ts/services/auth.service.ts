@@ -15,6 +15,8 @@ export class AuthService{
             password: bcrypt.hashSync(newUser.password, 8),
         });
 
+        console.log(user)
+
         return user;
     }
 
@@ -27,7 +29,7 @@ export class AuthService{
 
         if (!user) {
             console.log("user not found")
-            throw {message:"user not found!"};
+            throw {message:"user not found!", status:404};
         }
 
         let passwordIsValid = await bcrypt.compareSync(
@@ -39,7 +41,8 @@ export class AuthService{
             console.log("password invalid")
             throw {
                 accessToken: null,
-                message: "Invalid Password!"
+                message: "Invalid Password!",
+                status:401
             }
           
         }

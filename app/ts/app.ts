@@ -11,6 +11,7 @@ class App {
     private role = db.roles;
     private user = db.users;
     private blog = db.blogs;
+    private assoUsersBlog =db.assoUsersBlogs;
 
     constructor() {
         this.express = express();
@@ -22,8 +23,6 @@ class App {
         })
 
     }
-
-
 
     private middleware(): void {
         this.express.use(cors({ origin: "*" }))
@@ -58,17 +57,38 @@ class App {
             name: "admin"
         });
         await this.user.create({
-            username: "test",
-            password: 'test',
-            firstName: "test",
-            lastName: "test",
-            email: "test@test.com"
+            id:"user01",
+            username: "user",
+            password: 'user',
+            firstName: "user",
+            lastName: "user",
+            email: "user@user.com"
+        })
+        await this.user.create({
+            id:"user02",
+            username: "user2",
+            password: 'user2',
+            firstName: "user2",
+            lastName: "user2",
+            email: "user2@user.com"
         })
         await this.blog.create({
-            header: "test",
-            body: "test",
-
+            id:"blog01",
+            header: "blog",
+            body: "blog",
         })
+        await this.blog.create({
+            id:"blog02",
+            header: "blog2",
+            body: "blog2",
+        })
+        await this.assoUsersBlog.create({
+            userId: "user01",
+            blogId: "blog01",
+            roleId: 1
+        })
+
+
     }
 }
 

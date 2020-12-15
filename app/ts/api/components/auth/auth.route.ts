@@ -5,13 +5,13 @@ import { NextFunction } from "express-serve-static-core";
 
 class AuthRoute{
     public routes(app:Application,prefix:string){
-        app.use((req: Request, res: Response, next: NextFunction)=>{
-            res.header(
-                "Access-Control-Allow-Headers",
-                "x-access-token, Orgin, Content-Type, Accept"
-            )
-            next();
-        })
+        // app.use((req: Request, res: Response, next: NextFunction)=>{
+        //     res.header(
+        //         "Access-Control-Allow-Headers",
+        //         "x-access-token, Origin, Content-Type, Accept"
+        //     )
+        //     next();
+        // })
         app.post(prefix+`/signup`,[VerifySignUp.checkDuplicateUsernameOrEmail],AuthController.signUp)
         app.post(prefix+`/signin`,AuthController.signIn)
     }
