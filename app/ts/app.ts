@@ -51,10 +51,10 @@ class App {
         });
 
         await this.role.create({
-            name: "moderator"
+            name: "cowritter"
         });
         await this.role.create({
-            name: "admin"
+            name: "writter"
         });
         await this.user.create({
             id:"user01",
@@ -63,6 +63,13 @@ class App {
             firstName: "user",
             lastName: "user",
             email: "user@user.com"
+        })
+        await this.user.create({
+            username: "admin",
+            password: 'admin',
+            firstName: "admin",
+            lastName: "admin",
+            email: "admin@user.com"
         })
         await this.user.create({
             id:"user02",

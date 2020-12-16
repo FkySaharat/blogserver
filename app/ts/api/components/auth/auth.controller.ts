@@ -10,7 +10,6 @@ export class AuthController {
 
     constructor(){
         AuthController.authService = new AuthService();
-
     }
 
     public async signUp(req: Request, res: Response) {

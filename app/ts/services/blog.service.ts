@@ -6,10 +6,10 @@ import { MemberBlogService } from './memberBlog.service';
 
 export class BlogService{
 
-    private blogDB = db.blogs;
+    private blog = db.blogs;
 
     public async  getBlogbyId(blogId:string): Promise<any>{
-        const blog:BlogModel =await this.blogDB.findOne({
+        const blog:BlogModel =await this.blog.findOne({
             where:{id: blogId}
         }) as BlogModel;
        
@@ -21,7 +21,7 @@ export class BlogService{
     }
 
     public async getAllBlogs(): Promise<any>{
-        const blogs:BlogModel[] =await this.blogDB.findAll() as BlogModel[]
+        const blogs:BlogModel[] =await this.blog.findAll() as BlogModel[]
        
         if(!blogs){
             throw {message:"blogs not found"};
@@ -31,24 +31,42 @@ export class BlogService{
     }
 
     public async createBlog(newBlog:BlogModel, userId:string){
-        const blog:BlogModel =await this.blogDB.create({
+        const blog:BlogModel =await this.blog.create({
             ...newBlog
         })
 
         if(!blog.id){
             throw {message: "blog cannot create"}
         }
-
         
         return blog;
     }
 
-    public async updateBlog(editedBlog:BlogModel, userId: string){
-       
+    public async updateBlogById(editedBlog:BlogModel){
+        let obj ={
+            header: editedBlog.header,
+            body: editedBlog.body
+        }
+
+        const result = await this.blog.update(obj,{
+            where:{
+                id: editedBlog.id
+            }
+        })
+        console.log(result)
+        return true;
     }
 
-    public async deleteBlog(blogId: string, userId:string){
+    public async deleteBlogById(blogId: string){
+        
     
+        await this.blog.destroy({
+            where:{
+                id:blogId
+            }
+        })
+
+        return true;
     }
 
 

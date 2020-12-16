@@ -8,15 +8,15 @@ export class VerifyAuthJwt {
     private user = db.users;
 
     public async verifyToken(req: Request, res: Response, next: NextFunction) {
-        // x-access-token have no bearer
 
+         const authorization = req.headers.authorization as string;
 
         try {
-            const authorization = req.headers.authorization as string;
+            if(!authorization){
+                res.status(403).send({message: 'No token provided'})
+            }
 
             let token = authorization.split(' ').length>1 ?authorization.split(' ')[1]:authorization
-
-            //split bearer for authorization
 
             if (!token) {
                 res.status(403).send({ message: "No token provided" })
@@ -32,6 +32,7 @@ export class VerifyAuthJwt {
 
                 next();
             })
+            
         } catch (error) {
             console.log(error)
             res.status(401).send({ message: "Unauthorized" })
